@@ -3,7 +3,6 @@ from dotenv import load_dotenv
 import os
 from enum import Enum
 import json
-from .data import json_example
 
 app = Flask(__name__)
 app.config["JSON_SORT_KEYS"] = False
