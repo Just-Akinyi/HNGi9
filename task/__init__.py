@@ -23,8 +23,7 @@ def index():
 @app.route('/json-example', methods=['GET','POST'])
 def calculation():
     if request.methods == 'POST':
-        new_data = json_example()
-        # new_data = input('please input your data: ')
+        new_data = input()
         dictionary = json.loads(new_data)
         value_x=dictionary['x']
         value_y = dictionary['y']
