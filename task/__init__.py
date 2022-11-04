@@ -22,12 +22,12 @@ def index():
     
 @app.route('/json-example', methods=['GET','POST'])
 def calculation():
-    if request.methods == 'POST':
-        new_da
-        dictionary = json.loads(new_data)
-        value_x=dictionary['x']
-        value_y = dictionary['y']
-        operator=dictionary['operation_type']
+    if request.method == 'POST':
+        new_data = request.get_json(force=False,silent=False,cache=True)
+        # dictionary = json.loads(new_data)
+        value_x = new_data['x']
+        value_y = new_data['y']
+        operator = new_data['operation_type']
         class calc(Enum):
             ADD = 'add'
             SUB = 'subtract'
