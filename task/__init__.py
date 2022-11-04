@@ -1,4 +1,4 @@
-from flask import Flask, request
+from flask import Flask, request,render_template
 from dotenv import load_dotenv
 import os
 from enum import Enum
@@ -50,3 +50,4 @@ def calculation():
                 'result': result
             }
         return(myjson)
+    return
