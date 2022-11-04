@@ -49,4 +49,4 @@ def calculation():
                 'result': result
             }
         return(myjson)
-    return
+    return('your request was successfull just nothing to render')
