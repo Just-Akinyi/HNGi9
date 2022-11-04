@@ -24,7 +24,6 @@ def index():
 def calculation():
     if request.method == 'POST':
         new_data = request.get_json(force=False,silent=False,cache=True)
-        # dictionary = json.loads(new_data)
         value_x = new_data['x']
         value_y = new_data['y']
         operator = new_data['operation_type']
