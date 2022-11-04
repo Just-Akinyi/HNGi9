@@ -21,46 +21,44 @@ def index():
 
     return about_me
     
-@app.route('/json-example', methods=['GET','POST'])
+@app.post('/json-example')
 def calculation():
-    if request.method == 'POST':
-        new_data = request.get_json(force=False,silent=False,cache=True)
-        value_x = new_data['x']
-        value_y = new_data['y']
-        operator = new_data['operation_type']
-        class calc(Enum):
-            ADD = 'add'
-            SUB = 'subtract'
-            MULT = 'multiply'
-        operations = [item.value for item in calc]
+    new_data = request.get_json(force=False,silent=False,cache=True)
+    value_x = new_data['x']
+    value_y = new_data['y']
+    operator = new_data['operation_type']
+    class calc(Enum):
+        ADD = 'add'
+        SUB = 'subtract'
+        MULT = 'multiply'
+    operations = [item.value for item in calc]
 
-            
-        if operator in operations:
-            if operator == 'add':
-                result = value_x + value_y
-                myjson={
-                    'slackUsername': os.getenv('SLACK_USERNAME'),
-                    'operation_type': operator,
-                    'result': result
-                }
-                return myjson
-            if operator == 'subtract':
-                result = value_x - value_y
-                myjson={
-                    'slackUsername': os.getenv('SLACK_USERNAME'),
-                    'operation_type': operator,
-                    'result': result
-                }
-                return myjson
-            if operator == 'multiply':
-                result = value_x * value_y
-                myjson={
+        
+    if operator in operations:
+        if operator == 'add':
+            result = value_x + value_y
+            myjson={
                 'slackUsername': os.getenv('SLACK_USERNAME'),
                 'operation_type': operator,
                 'result': result
-                }
-                return myjson
-        elif operator not in operations:
-            print('Use add, subract or multiply for operation type')
-            
-    return 'there was an issue with your post'
+            }
+            return myjson
+        if operator == 'subtract':
+            result = value_x - value_y
+            myjson={
+                'slackUsername': os.getenv('SLACK_USERNAME'),
+                'operation_type': operator,
+                'result': result
+            }
+            return myjson
+        if operator == 'multiply':
+            result = value_x * value_y
+            myjson={
+            'slackUsername': os.getenv('SLACK_USERNAME'),
+            'operation_type': operator,
+            'result': result
+            }
+            return myjson
+    elif operator not in operations:
+        print('Use add, subract or multiply for operation type')
+        
