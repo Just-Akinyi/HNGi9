@@ -59,6 +59,7 @@ def calculation():
             'result': result
             }
             return myjson
-    elif operator not in operations:
+    else:
         print('Use add, subract or multiply for operation type')
         
+    return 'there was an issue with your post'
