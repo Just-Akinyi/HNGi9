@@ -28,14 +28,14 @@ def calculation():
     value_y = new_data['y']
     operator = new_data['operation_type']
     class calc(Enum):
-        ADD = 'add'
-        SUB = 'subtract'
-        MULT = 'multiply'
+        ADD = 'addition'
+        SUB = 'subtraction'
+        MULT = 'multiplication'
     operations = [item.value for item in calc]
 
         
     if operator in operations:
-        if operator == 'add':
+        if operator == 'addition':
             result = value_x + value_y
             myjson={
                 'slackUsername': os.getenv('SLACK_USERNAME'),
@@ -43,7 +43,7 @@ def calculation():
                 'result': result
             }
             return myjson
-        if operator == 'subtract':
+        if operator == 'subtraction':
             result = value_x - value_y
             myjson={
                 'slackUsername': os.getenv('SLACK_USERNAME'),
@@ -51,7 +51,7 @@ def calculation():
                 'result': result
             }
             return myjson
-        if operator == 'multiply':
+        if operator == 'multiplication':
             result = value_x * value_y
             myjson={
             'slackUsername': os.getenv('SLACK_USERNAME'),
@@ -60,6 +60,6 @@ def calculation():
             }
             return myjson
     else:
-        print('Use add, subract or multiply for operation type')
+        return('Use add, subract or multiply for operation type')
         
     return 'there was an issue with your post'
