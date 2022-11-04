@@ -1,4 +1,4 @@
-from flask import Flask, request
+from flask import Flask, request,render_template
 from dotenv import load_dotenv
 import os
 from enum import Enum
@@ -23,28 +23,30 @@ def index():
 @app.route('/json-example', methods=['GET','POST'])
 def calculation():
     if request.method == 'POST':
-        # new_data = request.get_json(force=False,silent=False,cache=True)
-        value_x = request.json['x']
-        value_y = request.json['y']
-        operator = request.json['operation_type']
+        new_data = request.get_json(force=False,silent=False,cache=True)
+        value_x = new_data['x']
+        value_y = new_data['y']
+        operator = new_data['operation_type']
         class calc(Enum):
             ADD = 'add'
             SUB = 'subtract'
             MULT = 'multiply'
         operations = [item.value for item in calc]
+        try:
+            if operator in operations:
+                if operator == 'add':
+                    result = value_x + value_y
+                if operator == 'subtract':
+                    result = value_x - value_y
+                if operator == 'multiply':
+                    result = value_x * value_y
+            print(result)
+        except:
+            print('Use add, subract or multiply for operation type')
         myjson={
-                    'slackUsername': os.getenv('SLACK_USERNAME'),
-                    'operation_type': operator,
-                    'result': result
-                    }
-        if operator in operations:
-            if operator == 'add':
-                result = value_x + value_y
-                return myjson
-            if operator == 'subtract':
-                result = value_x - value_y
-                return myjson
-            if operator == 'multiply':
-                result = value_x * value_y
-                return myjson
-    return 'myjson'
+                'slackUsername': os.getenv('SLACK_USERNAME'),
+                'operation_type': operator,
+                'result': result
+            }
+        return(json.dumps(myjson))
+    return 'there was an issue whit your post'
