@@ -32,21 +32,34 @@ def calculation():
             SUB = 'subtract'
             MULT = 'multiply'
         operations = [item.value for item in calc]
-        try:
-            if operator in operations:
-                if operator == 'add':
-                    result = value_x + value_y
-                if operator == 'subtract':
-                    result = value_x - value_y
-                if operator == 'multiply':
-                    result = value_x * value_y
-            print(result)
-        except:
-            print('Use add, subract or multiply for operation type')
-        myjson={
+
+            
+        if operator in operations:
+            if operator == 'add':
+                result = value_x + value_y
+                myjson={
+                    'slackUsername': os.getenv('SLACK_USERNAME'),
+                    'operation_type': operator,
+                    'result': result
+                }
+                return myjson
+            if operator == 'subtract':
+                result = value_x - value_y
+                myjson={
+                    'slackUsername': os.getenv('SLACK_USERNAME'),
+                    'operation_type': operator,
+                    'result': result
+                }
+                return myjson
+            if operator == 'multiply':
+                result = value_x * value_y
+                myjson={
                 'slackUsername': os.getenv('SLACK_USERNAME'),
                 'operation_type': operator,
                 'result': result
-            }
-        return(json.dumps(myjson))
-    return 'there was an issue whit your post'
+                }
+                return myjson
+        else:
+            print('Use add, subract or multiply for operation type')
+            
+    return 'there was an issue with your post'
